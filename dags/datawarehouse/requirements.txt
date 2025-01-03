@@ -1,0 +1,9 @@
+psycopg2-binary
+SQLAlchemy
+sqlparse
+pandas
+pymysql
+pymongo
+numpy
+psycopg2
+scikit-learn

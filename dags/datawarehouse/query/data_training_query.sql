@@ -1,0 +1,1 @@
+SELECT * FROM data_training_champy

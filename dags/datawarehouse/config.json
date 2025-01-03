@@ -1,0 +1,28 @@
+{
+    "marketplace_prod": {
+        "host": "34.56.65.122",
+        "db": "ftde03",
+        "user": "ftde03",
+        "password": "ftde03!@#",
+        "port": "5432"
+    },
+    "marketplace_prod_mysql": {
+        "host": "34.56.65.122",
+        "db": "ftde03",
+        "user": "ftde03",
+        "password": "ftde03!@#",
+        "port": "3306"
+    },
+    "dwh": {
+        "host": "34.56.65.122",
+        "db": "testing_dwh",
+        "user": "ftde03",
+        "password": "ftde03!@#",
+        "port": "5432"
+    },
+    "mongodb": {
+        "mongo_uri": "mongodb://admin:password@34.56.65.122:27017/",
+        "database_name": "ftde3",
+        "collection_name": "testing"
+    }
+}
