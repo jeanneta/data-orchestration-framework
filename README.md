@@ -55,26 +55,69 @@ Managing Human Capital data is a challenge due to the diversity of systems (e.g.
 
 ---
 
-## Step by Step
 
-1. **Data Preparation**: The project involves four datasets in CSV format: Recruitment & Selection, Data Management & Payroll, Training & Development, and Performance Management.
-2. **Data Dump**: Load three datasets (Management & Payroll, Performance Management) into a PostgreSQL database (OLTP structure) and one dataset (Training & Development) into MySQL.
-3. **Kafka Producer**: Create a Kafka producer to send one dataset (Recruitment & Selection) in CSV format.
-4. **Data Warehouse ERD**: Design the ERD for a data warehouse combining all four datasets.
-5. **Data Mart ERD**: Design the ERD for a data mart based on business use cases.
-6. **Kafka Consumer**: Build a Kafka consumer to receive the data from the producer and store it in MongoDB.
-7. **ETL (OLTP to OLAP)**: Create an ETL pipeline to load data from OLTP databases into the data warehouse (OLAP structure) using Airflow scheduling.
-8. **ETL for Predictions**: Perform ETL from unstructured OLTP data and predict using a machine learning model, then load the predictions into the data warehouse.
-9. **ETL (OLAP to Data Mart)**: Build an ETL pipeline to transfer data from the data warehouse to the data mart (e.g., SharePoint).
-10. **Dashboard**: Create a dashboard based on the business use cases.
+## Project Structure
 
-## Data Flow
+```python
+data-orchestration-framework
+├── dags/
+│   ├── datawarehouse/    
+│	    ├── model/ 
+│	    ├── query 
+│	    ├── config.json 
+│	    ├── connection.py    
+│	    ├── main.py    
+│	    ├── requirements.txt    
+│   ├── modules/    
+│	    ├── etl.py    
+│   ├── datamart.py    
+├── data_dump/
+│	    ├── csv_file 
+│	    ├── data_dump.ipynb 
+│	    ├── producer.ipynb 
+├── images/         
+├── .gitignore
+├── Dockerfile     
+├── README.md                 
+├── consumer.ipynb                         
+├── docker-compose.yaml                 
+├── requirements.txt            
+└── .env                  
+```
 
-1. Data is ingested from various sources (e.g., MongoDB, PostgreSQL, MySQL).
-2. Kafka streams real-time data for processing.
-3. Spark cleans and transforms raw data for loading into the warehouse.
-4. Data Warehouse consolidates cleaned data into dimension and fact tables.
-5. Dashboards visualize the insights in near real-time.
+## Key Steps and Features
+
+1. **Data Dump**
+    - Loaded three datasets (*Management & Payroll*, *Performance Management*) into a PostgreSQL database (OLTP) and one dataset (*Training & Development*) into MySQL.
+    - View code: [`data_dump/data_dump.ipynb`](https://github.com/jeanneta/data-orchestration-framework/blob/main/data_dump/data_dump.ipynb)
+2. **Kafka Producer**
+    - Created a Kafka producer to send the *Recruitment & Selection* dataset in CSV format.
+    - View code: [`data_dump/producer.ipynb`](https://github.com/jeanneta/data-orchestration-framework/blob/main/data_dump/producer.ipynb)
+3. **Kafka Consumer**
+    - Built a Kafka consumer to receive data from the producer and store it in MongoDB.
+    - View code: [`consumer.ipynb`](https://github.com/jeanneta/data-orchestration-framework/blob/main/consumer.ipynb)
+4. **Data Warehouse (OLAP) ERD**
+    - Designed the ERD for a data warehouse combining all four OLTP datasets.
+    - View schema: [`dags/datawarehouse/query`](https://github.com/jeanneta/data-orchestration-framework/tree/main/dags/datawarehouse/query)
+5. **ETL Pipeline (OLTP to OLAP)**
+    - Developed an ETL pipeline to load data from OLTP to the data warehouse (OLAP structure) using Airflow.
+    - Data Warehouse consolidates cleaned data into dimension and fact tables.
+    - View code: [`dags/datawarehouse/main.py`](https://github.com/jeanneta/data-orchestration-framework/blob/main/dags/datawarehouse/main.py)
+6. **Machine Learning Integration**
+    - Performed machine learning analysis on unstructured OLTP data and built prediction models.
+    - View code: [`dags/datawarehouse/model`](https://github.com/jeanneta/data-orchestration-framework/tree/main/dags/datawarehouse/model)
+7. **Data Mart ERD**
+    - Designed the ERD for a data mart based on specific business use cases.
+    - Included Airflow scheduling to transform data from the data warehouse to the data mart.
+    - View code: [`dags/modules/etl.py`](https://github.com/jeanneta/data-orchestration-framework/blob/main/dags/modules/etl.py)
+8. **ETL Pipeline (OLAP to Data Mart)**
+    - Built an ETL pipeline to transfer data from the data warehouse to the data mart (e.g., SharePoint) and implemented Airflow scheduling.
+    - Spark cleans and transforms raw data for loading into Data Mart.
+    - View code: [`dags/datamart.py`](https://github.com/jeanneta/data-orchestration-framework/blob/main/dags/datamart.py)
+9. **Google Sheets Integration**
+    - Uploaded transformed data from the data mart to Google Sheets for analysis.
+10. **Dashboard**
+    - Created an interactive dashboard to analyze and visualize business insights using Looker Studio in near real-time.
 
 ## Additional Benefits
 
@@ -146,6 +189,7 @@ Dashboards for:
 1. Recruitment analysis.
 2. Payroll insights.
 3. Employee performance tracking.
+4. Employee demographics.
 
 ---
 
